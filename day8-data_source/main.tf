@@ -1,12 +1,3 @@
-# Datasource for subnet id
-data "aws_subnet" "subnet_id" {
-  filter {
-    name = "tag:Name"
-    values = [ "subnet" ]
-  }
-}
-
-# Datasource for ami id
 data "aws_ami" "amzlinux" {
   most_recent = true
   owners = [ "amazon" ]
@@ -28,9 +19,23 @@ data "aws_ami" "amzlinux" {
   }
 }
 
-resource "aws_instance" "Ec2" {
-  ami = data.aws_ami.amzlinux.id
-  instance_type = "t2.micro"
-  key_name = "AWS-key"
-  subnet_id = data.aws_subnet.subnet_id.id
+data "aws_ec2_instance_type_offering" "example" {
+  filter {
+    name   = "instance-type"
+    values = ["t2.micro"] # Specify the instance type you want to query
+  }
+
+  location_type = "region" # Filter instance types available in a region
+}
+
+
+
+
+
+
+resource "aws_instance" "dev" {
+    ami = data.aws_ami.amzlinux.id
+    instance_type = data.aws_ec2_instance_type_offering.example.id
+    key_name = "AWS-key"
+  
 }

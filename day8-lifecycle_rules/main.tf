@@ -3,7 +3,7 @@ resource "aws_instance" "name" {
   instance_type = "t2.micro"
   availability_zone = "ap-south-1b"
   tags = {
-    Name = "Ec2"
+    Name = "kavya"
   }
 
 
@@ -16,6 +16,6 @@ resource "aws_instance" "name" {
     #}
 
     #lifecycle{
-    #ignore_changes = [tags, ]
+    #ignore_changes = [tags]
     #}
 }

@@ -4,6 +4,6 @@ resource "aws_instance" "ec2" {
   key_name = var.key_name
   availability_zone = var.availability_zone
   tags = {
-    Name = "ec2"
+    Name = "dev"
   }
 }
